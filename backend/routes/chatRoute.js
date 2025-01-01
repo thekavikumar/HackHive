@@ -29,5 +29,18 @@ router.post('/addChat', async (req, res) => {
   }
 });
 
-module.exports = router;
+// Search messages in a room
+router.get('/:roomId/search', async (req, res) => {
+  const { query } = req.query; // Pass search query as a query param
+  try {
+    const messages = await Chat.find({
+      roomId: req.params.roomId,
+      message: { $regex: query, $options: 'i' }, // Case-insensitive search
+    });
+    res.status(200).json(messages);
+  } catch (err) {
+    res.status(500).json({ message: 'Error searching messages', error: err });
+  }
+});
 
+module.exports = router;

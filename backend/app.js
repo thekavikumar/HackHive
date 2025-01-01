@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const socketIo = require('socket.io');   // Import socket.io
-const http = require('http');            // Import HTTP module to integrate with Express
+const http = require('http');           // Import HTTP module to integrate with Express
 
-// Import routes
-const chatRoutes = require('./routes/chatRoutes'); 
+// Import centralized routes
+const routes = require('./routes'); 
 
 dotenv.config();
 
@@ -30,8 +30,8 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Register routes
-app.use('/chat', chatRoutes);  // Use the chat routes under /chat
+// Register centralized routes
+app.use('/api', routes); // Prefix all routes with '/api'
 
 // Real-time Socket.io Communication
 io.on('connection', (socket) => {
