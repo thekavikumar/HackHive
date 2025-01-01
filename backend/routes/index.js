@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const chatRoutes = require('./chatRoutes');
-const roomRoutes = require('./roomRoutes');
+const roomRoutes = require('./roomsRoutes');
 const userRoutes = require('./userRoutes');
 
 router.use('/chat', chatRoutes);
